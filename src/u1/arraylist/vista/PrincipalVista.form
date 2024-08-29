@@ -101,10 +101,8 @@
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="txtApellido" alignment="0" pref="116" max="32767" attributes="0"/>
                                       <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="txtPromedio" alignment="0" pref="75" max="32767" attributes="0"/>
-                                          <Component id="txtEdad" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="txtPromedio" alignment="0" pref="116" max="32767" attributes="0"/>
+                                      <Component id="txtEdad" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -280,6 +278,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Refrescar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefrescarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCargar">
           <Properties>
@@ -448,6 +449,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnHabilitar">

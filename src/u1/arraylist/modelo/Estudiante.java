@@ -9,6 +9,7 @@ package u1.arraylist.modelo;
  * @author Boris Perez
  */
 public class Estudiante {
+
     private String nombre, apellido, codigo;
     private int edad;
     private double promedio;
@@ -52,6 +53,5 @@ public class Estudiante {
     public void setPromedio(double promedio) {
         this.promedio = promedio;
     }
-    
-    
+
 }

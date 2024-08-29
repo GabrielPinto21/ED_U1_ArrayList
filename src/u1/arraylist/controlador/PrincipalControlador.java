@@ -17,35 +17,25 @@ import u1.arraylist.vista.PrincipalVista;
  * @author Boris Perez
  */
 public class PrincipalControlador {
+
     private Negocio negocio;
     private PrincipalVista frame;
-    
-    public PrincipalControlador(PrincipalVista frame){
+
+    public PrincipalControlador(PrincipalVista frame) {
         negocio = new Negocio();
         this.frame = frame;
     }
-    
-    public void agregarEstudiante(){
+
+    public void agregarEstudiante() {
         String nombre = frame.getTxtNombre().getText();
         String apellido = frame.getTxtApellido().getText();
         String codigo = frame.getTxtCodigo().getText();
         int edad = Integer.parseInt(frame.getTxtEdad().getText());
         double promedio = Double.parseDouble(frame.getTxtPromedio().getText());
-        
+
         negocio.agregarEstudiante(nombre, apellido, edad, promedio, codigo);
-        
-        ArrayList<Estudiante> listaEstudiantes = negocio.obtenerEstudiantes();
-        if(listaEstudiantes!=null && !listaEstudiantes.isEmpty()){
-            
-            DefaultListModel<String> listModel = (DefaultListModel)frame.getLstEstudiantes().getModel();
-            listModel.removeAllElements();
-            
-            for (Estudiante estudiante : listaEstudiantes) {
-                listModel.addElement(estudiante.getNombre() + " " + estudiante.getApellido() + " - " + estudiante.getCodigo());
-            }
-            
-            limpiarCampos();
-        }
+
+        this.actualizar();
     }
 
     public void limpiarCampos() {
@@ -54,26 +44,26 @@ public class PrincipalControlador {
         frame.getTxtPromedio().setText("");
         frame.getTxtEdad().setText("");
         frame.getTxtCodigo().setText("");
-        
+
     }
 
     public void cargarDatosEstudiante() {
-        
+
         String lineaEstudiante = frame.getLstEstudiantes().getSelectedValue();
-        if(!lineaEstudiante.isBlank()){
+        if (!lineaEstudiante.isBlank()) {
             String[] datosEstudianteSeleccionado = lineaEstudiante.split(" - ");
             String codigo = datosEstudianteSeleccionado[1];
-            
-            if(!codigo.isBlank()){
+
+            if (!codigo.isBlank()) {
                 Estudiante e = negocio.buscarEstudiante(codigo);
-                if(e!=null){
+                if (e != null) {
                     frame.getTxtVerNombre().setText(e.getNombre());
                     frame.getTxtVerApellido().setText(e.getApellido());
-                    frame.getTxtVerEdad().setText(""+e.getEdad());
-                    frame.getTxtVerPromedio().setText(""+e.getPromedio());
-                    frame.getTxtVerCodigo().setText(e.getCodigo());                    
+                    frame.getTxtVerEdad().setText("" + e.getEdad());
+                    frame.getTxtVerPromedio().setText("" + e.getPromedio());
+                    frame.getTxtVerCodigo().setText(e.getCodigo());
                 }
-            }            
+            }
         }
     }
 
@@ -82,13 +72,13 @@ public class PrincipalControlador {
         frame.getTxtVerApellido().setEditable(true);
         frame.getTxtVerEdad().setEditable(true);
         frame.getTxtVerPromedio().setEditable(true);
-        frame.getTxtVerCodigo().setEditable(true);
-        
+        //frame.getTxtVerCodigo().setEditable(true);
+
         frame.getTxtVerNombre().setBackground(Color.white);
         frame.getTxtVerApellido().setBackground(Color.white);
         frame.getTxtVerEdad().setBackground(Color.white);
         frame.getTxtVerPromedio().setBackground(Color.white);
-        frame.getTxtVerCodigo().setBackground(Color.white);
+        //frame.getTxtVerCodigo().setBackground(Color.white);
     }
 
     public void cancelarActualizacion() {
@@ -97,14 +87,14 @@ public class PrincipalControlador {
         frame.getTxtVerEdad().setEditable(false);
         frame.getTxtVerPromedio().setEditable(false);
         frame.getTxtVerCodigo().setEditable(false);
-        
+
         frame.getTxtVerNombre().setBackground(new java.awt.Color(255, 255, 204));
         frame.getTxtVerNombre().setBackground(new java.awt.Color(255, 255, 204));
         frame.getTxtVerApellido().setBackground(new java.awt.Color(255, 255, 204));
         frame.getTxtVerEdad().setBackground(new java.awt.Color(255, 255, 204));
         frame.getTxtVerPromedio().setBackground(new java.awt.Color(255, 255, 204));
         frame.getTxtVerCodigo().setBackground(new java.awt.Color(255, 255, 204));
-        
+
         frame.getTxtVerNombre().setText("");
         frame.getTxtVerApellido().setText("");
         frame.getTxtVerEdad().setText("");
@@ -113,11 +103,28 @@ public class PrincipalControlador {
     }
 
     public void guardarActualizacion() {
-        
-        JOptionPane.showMessageDialog(null, "Falta implementar");
-        
-        // TODO Tomar los datos y actualizar el objeto dentro del arraylist
-        // TODO Actualizar la lista en el ListView
-        
+
+        String nombre = frame.getTxtVerNombre().getText();
+        String apellido = frame.getTxtVerApellido().getText();
+        String edad = frame.getTxtVerEdad().getText();
+        String promedio = frame.getTxtVerPromedio().getText();
+        String codigo = frame.getTxtVerCodigo().getText();
+
+        negocio.actualizarInfo(nombre, apellido, edad, promedio, codigo);
+    }
+
+    public void actualizar() {
+        ArrayList<Estudiante> listaEstudiantes = negocio.obtenerEstudiantes();
+        if (listaEstudiantes != null && !listaEstudiantes.isEmpty()) {
+
+            DefaultListModel<String> listModel = (DefaultListModel) frame.getLstEstudiantes().getModel();
+            listModel.removeAllElements();
+
+            for (Estudiante estudiante : listaEstudiantes) {
+                listModel.addElement(estudiante.getNombre() + " " + estudiante.getApellido() + " - " + estudiante.getCodigo());
+            }
+
+            limpiarCampos();
+        }
     }
 }

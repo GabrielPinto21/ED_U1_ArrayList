@@ -5,32 +5,46 @@
 package u1.arraylist.modelo;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Boris Perez
  */
 public class Negocio {
-    
+
     private ArrayList<Estudiante> estudiantes;
-    
-    public Negocio(){
+
+    public Negocio() {
         estudiantes = new ArrayList<Estudiante>();
     }
-    
-    public void agregarEstudiante(String nombre, String apellido, int edad, double promedio, String codigo){
-        Estudiante e = new Estudiante();
-        e.setNombre(nombre);
-        e.setApellido(apellido);
-        e.setEdad(edad);
-        e.setCodigo(codigo);
-        e.setPromedio(promedio);
-        
-        // TODO Incluir validacion de que no se repita el codigo
-        
-        // TODO Incluir validacion que solo los aprobados sean incluidos
-        
-        estudiantes.add(e);
+
+    public void agregarEstudiante(String nombre, String apellido, int edad, double promedio, String codigo) {
+
+        if (estudiantes.isEmpty()) {
+            Estudiante e = new Estudiante();
+            e.setNombre(nombre);
+            e.setApellido(apellido);
+            e.setEdad(edad);
+            e.setCodigo(codigo);
+            e.setPromedio(promedio);
+            estudiantes.add(e);
+        } else {
+            for (Estudiante estudiante : estudiantes) {
+                if (estudiante.getCodigo().equals(codigo)) {
+                    JOptionPane.showMessageDialog(null, "Este estudiante ya existe");
+                } else {
+                    Estudiante e = new Estudiante();
+                    e.setNombre(nombre);
+                    e.setApellido(apellido);
+                    e.setEdad(edad);
+                    e.setCodigo(codigo);
+                    e.setPromedio(promedio);
+                    estudiantes.add(e);
+                    break;
+                }
+            }
+        }
     }
 
     public ArrayList<Estudiante> obtenerEstudiantes() {
@@ -39,10 +53,23 @@ public class Negocio {
 
     public Estudiante buscarEstudiante(String codigo) {
         for (Estudiante estudiante : estudiantes) {
-            if(estudiante.getCodigo().equals(codigo))
+            if (estudiante.getCodigo().equals(codigo)) {
                 return estudiante;
+            }
         }
         return null;
     }
-    
+
+    public void actualizarInfo(String nombre, String apellido, String edad, String promedio, String codigo) {
+
+        for (Estudiante estudiante : estudiantes) {
+            if (estudiante.getCodigo().equals(codigo)) {
+                estudiante.setNombre(nombre);
+                estudiante.setApellido(apellido);
+                estudiante.setEdad(Integer.parseInt(edad));
+                estudiante.setPromedio(Double.parseDouble(promedio));
+            }
+        }
+
+    }
 }

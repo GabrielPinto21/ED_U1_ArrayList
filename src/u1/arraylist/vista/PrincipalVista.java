@@ -17,7 +17,7 @@ public class PrincipalVista extends javax.swing.JFrame {
 
     private PrincipalControlador controlador;
     private DefaultListModel<String> listModel;
-    
+
     /**
      * Creates new form PrincipalView
      */
@@ -25,7 +25,7 @@ public class PrincipalVista extends javax.swing.JFrame {
         initComponents();
         controlador = new PrincipalControlador(this);
         listModel = new DefaultListModel<>();
-        
+
         lstEstudiantes.setModel(listModel);
     }
 
@@ -125,9 +125,8 @@ public class PrincipalVista extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtPromedio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                                        .addComponent(txtEdad, javax.swing.GroupLayout.Alignment.LEADING)))
+                                    .addComponent(txtPromedio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                    .addComponent(txtEdad, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
@@ -170,6 +169,11 @@ public class PrincipalVista extends javax.swing.JFrame {
         jScrollPane1.setViewportView(lstEstudiantes);
 
         btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
 
         btnCargar.setText("Cargar");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +236,7 @@ public class PrincipalVista extends javax.swing.JFrame {
 
         txtVerCodigo.setEditable(false);
         txtVerCodigo.setBackground(new java.awt.Color(255, 255, 204));
+        txtVerCodigo.setEnabled(false);
 
         btnHabilitar.setText("Habilitar actualización");
         btnHabilitar.addActionListener(new java.awt.event.ActionListener() {
@@ -393,6 +398,10 @@ public class PrincipalVista extends javax.swing.JFrame {
         controlador.guardarActualizacion();
     }//GEN-LAST:event_btnGuardarActualizarActionPerformed
 
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        controlador.actualizar();
+    }//GEN-LAST:event_btnRefrescarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -444,7 +453,7 @@ public class PrincipalVista extends javax.swing.JFrame {
     public JTextField getTxtNombre() {
         return txtNombre;
     }
-    
+
     public JTextField getTxtEdad() {
         return txtEdad;
     }
